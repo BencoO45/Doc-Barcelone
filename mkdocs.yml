@@ -18,3 +18,5 @@ nav:
 
 theme:
   name: mkdocs
+  logo: assets/logo.png
+  favicon: assets/logo.png
