@@ -1,0 +1,19 @@
+site_name: Doc Barcelone
+
+nav:
+  - Accueil: index.md
+  - DNS:
+      - Introduction: dns/index.md
+  - Linux:
+      - Commandes de base: linux/commandes-de-base.md
+  - Service Web:
+      - Introduction: service-web/index.md
+  - Stormshield:
+      - Introduction: stormshield/index.md
+  - Versioning:
+      - Introduction: versioning/index.md
+  - Windows:
+      - Introduction: windows/index.md
+
+theme:
+  name: mkdocs
