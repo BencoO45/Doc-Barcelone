@@ -18,40 +18,52 @@ Ce document décrit l’installation et la configuration d’un serveur **DHCP**
 
 Avant toute chose, mettre à jour le système et installer le serveur DHCP KEA :
 
-```bash
+```json
 sudo apt-get update
 sudo apt-get install kea-dhcp4-server
+```
 
 Vérifier l’état du service :
 
+```json
 sudo systemctl status kea-dhcp4-server
+```
 
 Le service utilise le fichier de configuration suivant :
 
+```json
 /etc/kea/kea-dhcp4.conf
+```
 
 Configuration du serveur DHCP KEA
 Identifier l’interface réseau
 
 Afficher la configuration réseau afin d’identifier le nom de l’interface :
 
+```json
 ip a
+```
 
 Dans cet exemple, l’interface utilisée est ens33.
 Préparer le fichier de configuration
 
 Renommer le fichier de configuration par défaut afin de repartir sur une base propre :
 
+```json
 sudo mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.bkp
+```
 
 Créer et éditer le nouveau fichier :
 
+```json
 sudo nano /etc/kea/kea-dhcp4.conf
+```
 
 Configuration globale du serveur DHCP
 
-Ajouter la configuration suivante :
+## Ajouter la configuration suivante
 
+```json
 {
   "Dhcp4": {
     "interfaces-config": {
@@ -72,11 +84,13 @@ Ajouter la configuration suivante :
     }
   }
 }
+```
 
 Création d’une étendue DHCP
 
 Pour distribuer des adresses IP sur le réseau 192.168.2.0/24, ajouter une étendue DHCP :
 
+```json
 {
   "Dhcp4": {
     "interfaces-config": {
@@ -120,6 +134,7 @@ Pour distribuer des adresses IP sur le réseau 192.168.2.0/24, ajouter une éten
     ]
   }
 }
+```
 
 Explication des options
 
@@ -136,13 +151,13 @@ chaque élément doit se terminer par une virgule, sauf le dernier.
 Redémarrage et vérification du service
 
 Redémarrer le serveur DHCP :
-
+```bash
 sudo systemctl restart kea-dhcp4-server.service
-
+```
 Si le service ne démarre pas, consulter les logs :
-
+```json
 sudo journalctl -xe | grep -e kea
-
+```
 Une erreur de syntaxe dans le fichier de configuration peut empêcher le démarrage du service.
 Test de fonctionnement
 
