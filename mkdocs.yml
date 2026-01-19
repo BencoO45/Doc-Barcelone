@@ -6,6 +6,7 @@ nav:
       - Introduction: dns/index.md
   - Linux:
       - Commandes de base: linux/commandes-de-base.md
+      - DHCP (debian 12) : linux/InstallationDHCP.md
   - Service Web:
       - Introduction: service-web/index.md
   - Stormshield:
