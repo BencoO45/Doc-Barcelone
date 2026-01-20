@@ -2,37 +2,50 @@
 
 ---
 
-## À propos
 
-Cette documentation a été réalisée dans le cadre de mon **BTS SIO option SISR**.  
-Elle regroupe des notes techniques, procédures et mémos liés à l’administration systèmes et réseaux.
+<div style="margin-top:3rem; padding:2rem; border-radius:12px; background:linear-gradient(135deg,#1e3c72,#2a5298); color:white;">
 
-Objectif :
-- Centraliser mes connaissances
-- Avoir une documentation claire et structurée
-- Servir de support pour mes études et mon stage
+<h2> 🚀 Documentation technique – BTS SIO SISR</h2>
 
----
-## Accès rapide
+Cette documentation regroupe mes <b>procédures systèmes & réseaux</b>,  
+réalisées durant mon <b>BTS SIO option SISR</b> et mon stage.
 
-- 📁 [Linux](linux/commandes-de-base.md)
-- 🌐 [DNS](dns/index.md)
-- 🖥️ [Service Web](service-web/index.md)
-- 🔐 [Stormshield](stormshield/index.md)
-- 🧾 [Versioning](versioning/index.md)
-- 🪟 [Windows](windows/index.md)
-
+</div>
 
 ---
 
-## Ce que tu trouveras ici
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.2rem; margin-top:2rem;">
 
-- ✅ Procédures pas-à-pas (installation, config, dépannage)
-- ✅ Mémos commandes (Linux, réseau, services)
-- ✅ Captures et exemples de config
-- ✅ Liens utiles et ressources
+<div style="padding:1.2rem; border-radius:10px; background:#f4f6f8;">
+<strong>🐧 Linux</strong><br>
+Commandes, services, DHCP, DNS
+</div>
+
+<div style="padding:1.2rem; border-radius:10px; background:#f4f6f8;">
+<strong>🌐 Réseau</strong><br>
+DNS, DHCP, architecture
+</div>
+
+<div style="padding:1.2rem; border-radius:10px; background:#f4f6f8;">
+<strong>📞 Téléphonie</strong><br>
+FreePBX, VoIP, migration
+</div>
+
+<div style="padding:1.2rem; border-radius:10px; background:#f4f6f8;">
+<strong>🔐 Sécurité</strong><br>
+Stormshield, bonnes pratiques
+</div>
+
+<div style="padding:1.2rem; border-radius:10px; background:#f4f6f8;">
+<strong>🪟 Windows</strong><br>
+ActiveDirectory,DHCP,GPO
+</div>
+
+
+</div>
 
 ---
 
-## Dernière mise à jour
-📅 Janvier 2026
+<div style="text-align:center; margin-top:2.5rem; opacity:0.6;">
+Créé par Sefa • BTS SIO SISR
+</div>
