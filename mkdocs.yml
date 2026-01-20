@@ -4,6 +4,7 @@ nav:
   - Accueil: index.md
   - DNS:
       - Introduction: dns/index.md
+      - DNS récursif (Unbound): dns/dns-recursif-unbound.md
   - Linux:
       - Commandes de base: linux/commandes-de-base.md
       - DHCP (debian 12) : linux/InstallationDHCP.md
