@@ -1,6 +1,6 @@
 # Installation d’un serveur DNS récursif sous Debian 12 (Unbound)
 
-## Introduction
+## **Introduction**
 
 Dans ce tutoriel, nous allons apprendre à installer et configurer un **serveur DNS récursif** sous **Linux**, en utilisant une machine sous **Debian 12**.
 
@@ -9,9 +9,9 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 
 ---
 
-## Rappels sur le DNS
+## **Rappels sur le DNS**
 
-### Types d’enregistrements DNS principaux
+### **Types d’enregistrements DNS principaux**
 
 - **NS (Name Server)** : définit les serveurs DNS faisant autorité sur une zone.
 - **A** : associe un nom de domaine à une adresse IPv4.
@@ -22,9 +22,9 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 
 ---
 
-## Avantages et inconvénients d’un DNS récursif interne
+## **Avantages et inconvénients d’un DNS récursif interne**
 
-### Avantages
+### **Avantages**
 
 - Amélioration des performances grâce au cache local
 - Réduction de la dépendance aux DNS publics (Google, Cloudflare…)
@@ -32,7 +32,7 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 - Contrôle et journalisation des requêtes DNS
 - Continuité locale même en cas de panne Internet
 
-### Inconvénients
+### **Inconvénients**
 
 - Complexité de gestion et de maintenance
 - Consommation de ressources (CPU, mémoire)
@@ -42,32 +42,39 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 
 ---
 
-## Installation et configuration du service Unbound
-
-### Installation du service
+## **Installation et configuration du service Unbound**
+### **Installation du service**
 
 Mettre à jour le système et installer **Unbound** :
 
 ```bash
 sudo apt update
 sudo apt install unbound
+```
 
 Vérifier la version installée :
 
+```bash
 sudo unbound -V
+```
 
 Sauvegarde et configuration des fichiers
 
 La configuration d’Unbound se trouve dans :
 
+```bash
 /etc/unbound/unbound.conf
+```
 
 Avant modification, il est recommandé de sauvegarder le fichier :
 
+```bash
 sudo cp /etc/unbound/unbound.conf /etc/unbound/unbound.conf.bak
+```
 
 Exemple de configuration Unbound
 
+```bash
 include-toplevel: "/etc/unbound/unbound.conf.d/*.conf"
 
 server:
@@ -86,64 +93,83 @@ server:
   hide-identity: yes
   do-ip4: yes
   verbosity: 3
+```
 
-Cette configuration permet :
+### Ce que fait cette configuration
 
-    d’autoriser uniquement certains réseaux (VLAN)
+✅ **Contrôle d’accès**
+- Autorise uniquement les réseaux internes définis (VLAN)
 
-    de bloquer les requêtes externes
+✅ **Sécurité**
+- Bloque toutes les requêtes DNS externes
+- Masque l’identité et la version du serveur DNS
 
-    de masquer les informations du serveur DNS
+✅ **Durcissement**
+- Réduit la surface d’attaque du service DNS
+
+
+
 
 Démarrage du service Unbound
 
 Démarrer le service :
 
+```bash
 sudo systemctl start unbound
-
+```
 Vérifier son état :
 
+```bash
 sudo systemctl status unbound
-
+```
 Configuration des clients
-Configuration sous Windows
 
-    Ouvrir le Panneau de configuration
+### Configuration sous Windows
 
-    Aller dans Réseau et Internet > Centre Réseau et partage
+1. Ouvrir le **Panneau de configuration**
+2. Aller dans **Réseau et Internet → Centre Réseau et partage**
+3. Cliquer sur **Modifier les paramètres de la carte**
+4. Clic droit sur la carte réseau → **Propriétés**
+5. Sélectionner **IPv4** → **Propriétés**
+6. Cocher **Utiliser l’adresse de serveur DNS suivante**
+7. Entrer l’IP du serveur DNS interne
+8. Valider avec **OK**
 
-    Cliquer sur Modifier les paramètres de la carte
-
-    Clic droit sur la carte réseau → Propriétés
-
-    Sélectionner IPv4 → Propriétés
-
-    Cocher Utiliser l’adresse de serveur DNS suivante
-
-    Entrer l’IP du serveur DNS interne
-
-    Valider avec OK
 
 Configuration sous Linux
 
 Éditer le fichier de résolution DNS :
 
+```bash
 sudo nano /etc/resolv.conf
+```
 
-Ajouter ou modifier la ligne :
+### Configuration du résolveur DNS
 
+Ajouter ou modifier la ligne suivante dans le fichier :
+
+```bash
 nameserver 192.168.1.1
+```
+    ℹ️ Remarque
+    Remplacer 192.168.1.1 par l’adresse IP de votre serveur DNS interne.
 
-(Remplacer par l’adresse IP de ton serveur DNS interne)
-Test de fonctionnement
 
-Le bon fonctionnement peut être vérifié :
+---
 
-    en testant la résolution de noms (ping, nslookup)
+## 🔍 Test de fonctionnement
 
-    ou via Wireshark pour analyser les trames DNS sur le réseau
 
-Conclusion
+Le bon fonctionnement du serveur DNS peut être vérifié de plusieurs manières :
+
+- 🔎 **Test de résolution de noms**
+  - `ping google.com`
+  - `nslookup google.com`
+
+- 📡 **Analyse réseau**
+  - Observation des requêtes DNS via **Wireshark**
+---
+## **Conclusion**
 
 Mettre en place un serveur DNS récursif interne avec Unbound est une solution efficace pour améliorer les performances et renforcer le contrôle des requêtes DNS dans une entreprise.
 

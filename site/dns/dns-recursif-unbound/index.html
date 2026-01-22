@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>DHCP (debian 12) - Doc Barcelone</title>
+        <title>DNS récursif (Unbound) - Doc Barcelone</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -38,28 +38,28 @@
                                 <a href="../.." class="nav-link">Accueil</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">DNS</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">DNS</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../dns/" class="dropdown-item">Introduction</a>
+    <a href="../" class="dropdown-item">Introduction</a>
 </li>
                                     
 <li>
-    <a href="../../dns/dns-recursif-unbound/" class="dropdown-item">DNS récursif (Unbound)</a>
+    <a href="./" class="dropdown-item active" aria-current="page">DNS récursif (Unbound)</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Linux</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Linux</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../commandes-de-base/" class="dropdown-item">Commandes de base</a>
+    <a href="../../linux/commandes-de-base/" class="dropdown-item">Commandes de base</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">DHCP (debian 12)</a>
+    <a href="../../linux/InstallationDHCP/" class="dropdown-item">DHCP (debian 12)</a>
 </li>
                                 </ul>
                             </li>
@@ -108,12 +108,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../commandes-de-base/" class="nav-link">
+                                <a rel="prev" href="../" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../service-web/" class="nav-link">
+                                <a rel="next" href="../../linux/commandes-de-base/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -135,17 +135,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#installation-et-configuration-dun-serveur-dhcp-sous-debian-12-kea" class="nav-link">Installation et configuration d’un serveur DHCP sous Debian 12 (KEA)</a>
+            <li class="nav-item" data-bs-level="1"><a href="#installation-dun-serveur-dns-recursif-sous-debian-12-unbound" class="nav-link">Installation d’un serveur DNS récursif sous Debian 12 (Unbound)</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#presentation" class="nav-link">Présentation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#installation-du-serveur-dhcp-kea" class="nav-link">Installation du serveur DHCP KEA</a>
+            <li class="nav-item" data-bs-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#ajouter-la-configuration-suivante" class="nav-link">Ajouter la configuration suivante</a>
+            <li class="nav-item" data-bs-level="2"><a href="#rappels-sur-le-dns" class="nav-link">Rappels sur le DNS</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#avantages-et-inconvenients-dun-dns-recursif-interne" class="nav-link">Avantages et inconvénients d’un DNS récursif interne</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#installation-et-configuration-du-service-unbound" class="nav-link">Installation et configuration du service Unbound</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -156,142 +160,116 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="installation-et-configuration-dun-serveur-dhcp-sous-debian-12-kea">Installation et configuration d’un serveur DHCP sous Debian 12 (KEA)</h1>
-<h2 id="presentation">Présentation</h2>
-<p>Ce document décrit l’installation et la configuration d’un serveur <strong>DHCP</strong> sous <strong>Debian 12</strong> à l’aide de la solution <strong>ISC KEA DHCP Server</strong>.</p>
-<h3 id="prerequis">Prérequis</h3>
+<h1 id="installation-dun-serveur-dns-recursif-sous-debian-12-unbound">Installation d’un serveur DNS récursif sous Debian 12 (Unbound)</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Dans ce tutoriel, nous allons apprendre à installer et configurer un <strong>serveur DNS récursif</strong> sous <strong>Linux</strong>, en utilisant une machine sous <strong>Debian 12</strong>.</p>
+<p>Le <strong>DNS (Domain Name System)</strong> est un service essentiel permettant de traduire les noms de domaine en adresses IP.<br />
+Dans une entreprise, mettre en place un serveur DNS récursif interne permet d’avoir plus de <strong>contrôle</strong>, de <strong>sécurité</strong> et de <strong>performances</strong>.</p>
+<hr />
+<h2 id="rappels-sur-le-dns">Rappels sur le DNS</h2>
+<h3 id="types-denregistrements-dns-principaux">Types d’enregistrements DNS principaux</h3>
 <ul>
-<li>Une machine Debian avec une <strong>adresse IP statique</strong><br />
-  Exemple : <code>192.168.14.99/24</code></li>
-<li>Aucun autre serveur DHCP actif sur le réseau (éviter les conflits)</li>
-<li>Une machine cliente (Debian, Ubuntu, Windows…) <strong>sans configuration IP</strong></li>
-<li>Une connexion Internet pour installer les paquets</li>
+<li><strong>NS (Name Server)</strong> : définit les serveurs DNS faisant autorité sur une zone.</li>
+<li><strong>A</strong> : associe un nom de domaine à une adresse IPv4.</li>
+<li><strong>AAAA</strong> : associe un nom de domaine à une adresse IPv6.</li>
+<li><strong>CNAME (Canonical Name)</strong> : alias pointant vers un autre nom de domaine.</li>
+<li><strong>MX</strong> : définit les serveurs de messagerie d’un domaine (avec priorité).</li>
+<li><strong>TXT</strong> : enregistrement textuel (SPF, vérifications, etc.).</li>
 </ul>
 <hr />
-<h2 id="installation-du-serveur-dhcp-kea">Installation du serveur DHCP KEA</h2>
-<p>Avant toute chose, mettre à jour le système et installer le serveur DHCP KEA :</p>
-<pre><code class="language-json">sudo apt-get update
-sudo apt-get install kea-dhcp4-server
-</code></pre>
-<p>Vérifier l’état du service :</p>
-<pre><code class="language-json">sudo systemctl status kea-dhcp4-server
-</code></pre>
-<p>Le service utilise le fichier de configuration suivant :</p>
-<pre><code class="language-json">/etc/kea/kea-dhcp4.conf
-</code></pre>
-<p>Configuration du serveur DHCP KEA
-Identifier l’interface réseau</p>
-<p>Afficher la configuration réseau afin d’identifier le nom de l’interface :</p>
-<pre><code class="language-json">ip a
-</code></pre>
-<p>Dans cet exemple, l’interface utilisée est ens33.
-Préparer le fichier de configuration</p>
-<p>Renommer le fichier de configuration par défaut afin de repartir sur une base propre :</p>
-<pre><code class="language-json">sudo mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf.bkp
-</code></pre>
-<p>Créer et éditer le nouveau fichier :</p>
-<pre><code class="language-json">sudo nano /etc/kea/kea-dhcp4.conf
-</code></pre>
-<p>Configuration globale du serveur DHCP</p>
-<h2 id="ajouter-la-configuration-suivante">Ajouter la configuration suivante</h2>
-<pre><code class="language-json">{
-  &quot;Dhcp4&quot;: {
-    &quot;interfaces-config&quot;: {
-      &quot;interfaces&quot;: [ &quot;ens33&quot; ]
-    },
+<h2 id="avantages-et-inconvenients-dun-dns-recursif-interne">Avantages et inconvénients d’un DNS récursif interne</h2>
+<h3 id="avantages">Avantages</h3>
+<ul>
+<li>Amélioration des performances grâce au cache local</li>
+<li>Réduction de la dépendance aux DNS publics (Google, Cloudflare…)</li>
+<li>Sécurité renforcée (filtrage possible des requêtes)</li>
+<li>Contrôle et journalisation des requêtes DNS</li>
+<li>Continuité locale même en cas de panne Internet</li>
+</ul>
+<h3 id="inconvenients">Inconvénients</h3>
+<ul>
+<li>Complexité de gestion et de maintenance</li>
+<li>Consommation de ressources (CPU, mémoire)</li>
+<li>Point de défaillance unique sans redondance</li>
+<li>Risque d’erreurs de configuration</li>
+<li>Surveillance nécessaire contre les abus DNS</li>
+</ul>
+<hr />
+<h2 id="installation-et-configuration-du-service-unbound">Installation et configuration du service Unbound</h2>
+<h3 id="installation-du-service">Installation du service</h3>
+<p>Mettre à jour le système et installer <strong>Unbound</strong> :</p>
+<p>```bash
+sudo apt update
+sudo apt install unbound</p>
+<p>Vérifier la version installée :</p>
+<p>sudo unbound -V</p>
+<p>Sauvegarde et configuration des fichiers</p>
+<p>La configuration d’Unbound se trouve dans :</p>
+<p>/etc/unbound/unbound.conf</p>
+<p>Avant modification, il est recommandé de sauvegarder le fichier :</p>
+<p>sudo cp /etc/unbound/unbound.conf /etc/unbound/unbound.conf.bak</p>
+<p>Exemple de configuration Unbound</p>
+<p>include-toplevel: "/etc/unbound/unbound.conf.d/*.conf"</p>
+<p>server:
+  interface: 172.16.51.100
+  interface: 127.0.0.1</p>
+<p>access-control: 172.16.1.0/24 allow
+  access-control: 172.16.2.0/24 allow
+  access-control: 172.16.3.0/24 allow
+  access-control: 172.16.4.0/24 allow
+  access-control: 172.16.0.0/24 allow
+  access-control: 127.0.0.0/8 allow
+  access-control: 0.0.0.0/0 refuse</p>
+<p>hide-version: yes
+  hide-identity: yes
+  do-ip4: yes
+  verbosity: 3</p>
+<p>Cette configuration permet :</p>
+<pre><code>d’autoriser uniquement certains réseaux (VLAN)
 
-    &quot;valid-lifetime&quot;: 691200,
-    &quot;renew-timer&quot;: 345600,
-    &quot;rebind-timer&quot;: 604800,
+de bloquer les requêtes externes
 
-    &quot;authoritative&quot;: true,
-
-    &quot;lease-database&quot;: {
-      &quot;type&quot;: &quot;memfile&quot;,
-      &quot;persist&quot;: true,
-      &quot;name&quot;: &quot;/var/lib/kea/kea-leases4.csv&quot;,
-      &quot;lfc-interval&quot;: 3600
-    }
-  }
-}
+de masquer les informations du serveur DNS
 </code></pre>
-<p>Création d’une étendue DHCP</p>
-<p>Pour distribuer des adresses IP sur le réseau 192.168.2.0/24, ajouter une étendue DHCP :</p>
-<pre><code class="language-json">{
-  &quot;Dhcp4&quot;: {
-    &quot;interfaces-config&quot;: {
-      &quot;interfaces&quot;: [ &quot;ens33&quot; ]
-    },
+<p>Démarrage du service Unbound</p>
+<p>Démarrer le service :</p>
+<p>sudo systemctl start unbound</p>
+<p>Vérifier son état :</p>
+<p>sudo systemctl status unbound</p>
+<p>Configuration des clients
+Configuration sous Windows</p>
+<pre><code>Ouvrir le Panneau de configuration
 
-    &quot;valid-lifetime&quot;: 691200,
-    &quot;renew-timer&quot;: 345600,
-    &quot;rebind-timer&quot;: 604800,
+Aller dans Réseau et Internet &gt; Centre Réseau et partage
 
-    &quot;authoritative&quot;: true,
+Cliquer sur Modifier les paramètres de la carte
 
-    &quot;lease-database&quot;: {
-      &quot;type&quot;: &quot;memfile&quot;,
-      &quot;persist&quot;: true,
-      &quot;name&quot;: &quot;/var/lib/kea/kea-leases4.csv&quot;,
-      &quot;lfc-interval&quot;: 3600
-    },
+Clic droit sur la carte réseau → Propriétés
 
-    &quot;subnet4&quot;: [
-      {
-        &quot;subnet&quot;: &quot;192.168.2.0/24&quot;,
-        &quot;pools&quot;: [
-          { &quot;pool&quot;: &quot;192.168.2.1 - 192.168.2.125&quot; }
-        ],
-        &quot;option-data&quot;: [
-          {
-            &quot;name&quot;: &quot;domain-name-servers&quot;,
-            &quot;data&quot;: &quot;8.8.8.8&quot;
-          },
-          {
-            &quot;name&quot;: &quot;domain-search&quot;,
-            &quot;data&quot;: &quot;local.epoka2.lan&quot;
-          },
-          {
-            &quot;name&quot;: &quot;routers&quot;,
-            &quot;data&quot;: &quot;192.168.2.126&quot;
-          }
-        ]
-      }
-    ]
-  }
-}
+Sélectionner IPv4 → Propriétés
+
+Cocher Utiliser l’adresse de serveur DNS suivante
+
+Entrer l’IP du serveur DNS interne
+
+Valider avec OK
 </code></pre>
-<p>Explication des options</p>
-<pre><code>domain-name-servers : serveur DNS distribué aux clients
-
-domain-search : domaine de recherche local
-
-routers : passerelle par défaut
-
-pools : plage d’adresses IP attribuées aux clients
-</code></pre>
-<p>⚠️ Attention à la syntaxe JSON :
-chaque élément doit se terminer par une virgule, sauf le dernier.
-Redémarrage et vérification du service</p>
-<p>Redémarrer le serveur DHCP :</p>
-<pre><code class="language-bash">sudo systemctl restart kea-dhcp4-server.service
-</code></pre>
-<p>Si le service ne démarre pas, consulter les logs :</p>
-<pre><code class="language-json">sudo journalctl -xe | grep -e kea
-</code></pre>
-<p>Une erreur de syntaxe dans le fichier de configuration peut empêcher le démarrage du service.
+<p>Configuration sous Linux</p>
+<p>Éditer le fichier de résolution DNS :</p>
+<p>sudo nano /etc/resolv.conf</p>
+<p>Ajouter ou modifier la ligne :</p>
+<p>nameserver 192.168.1.1</p>
+<p>(Remplacer par l’adresse IP de ton serveur DNS interne)
 Test de fonctionnement</p>
-<p>Configurer un poste client pour qu’il obtienne automatiquement une adresse IP via DHCP.</p>
-<p>Si le poste reçoit :</p>
-<pre><code>une adresse IP
+<p>Le bon fonctionnement peut être vérifié :</p>
+<pre><code>en testant la résolution de noms (ping, nslookup)
 
-une passerelle
-
-un serveur DNS
+ou via Wireshark pour analyser les trames DNS sur le réseau
 </code></pre>
-<p>👉 alors le serveur DHCP est fonctionnel.
-Conclusion</p>
-<p>Le serveur DHCP KEA est désormais opérationnel sous Debian 12 et prêt à distribuer automatiquement les paramètres réseau aux clients.</p></div>
+<p>Conclusion</p>
+<p>Mettre en place un serveur DNS récursif interne avec Unbound est une solution efficace pour améliorer les performances et renforcer le contrôle des requêtes DNS dans une entreprise.</p>
+<p>Même si cela demande plus de travail en termes d’installation et de maintenance, les bénéfices en sécurité, indépendance et maîtrise du réseau sont significatifs.
+C’est donc un choix pertinent pour une infrastructure professionnelle.</p></div>
             </div>
         </div>
 
