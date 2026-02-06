@@ -16,7 +16,9 @@ nav:
       - Introduction: versioning/index.md
   - Windows:
       - Introduction: windows/index.md
-
+  - Téléphonie:
+      - Introduction: téléphonie/index.md 
+      - FreePBX Migration: téléphonie/freepbx.md
 theme:
   name: mkdocs
   logo: assets/logo.png

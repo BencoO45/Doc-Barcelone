@@ -153,6 +153,14 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#test-de-fonctionnement" class="nav-link">🔍 Test de fonctionnement</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -161,13 +169,13 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="installation-dun-serveur-dns-recursif-sous-debian-12-unbound">Installation d’un serveur DNS récursif sous Debian 12 (Unbound)</h1>
-<h2 id="introduction">Introduction</h2>
+<h2 id="introduction"><strong>Introduction</strong></h2>
 <p>Dans ce tutoriel, nous allons apprendre à installer et configurer un <strong>serveur DNS récursif</strong> sous <strong>Linux</strong>, en utilisant une machine sous <strong>Debian 12</strong>.</p>
 <p>Le <strong>DNS (Domain Name System)</strong> est un service essentiel permettant de traduire les noms de domaine en adresses IP.<br />
 Dans une entreprise, mettre en place un serveur DNS récursif interne permet d’avoir plus de <strong>contrôle</strong>, de <strong>sécurité</strong> et de <strong>performances</strong>.</p>
 <hr />
-<h2 id="rappels-sur-le-dns">Rappels sur le DNS</h2>
-<h3 id="types-denregistrements-dns-principaux">Types d’enregistrements DNS principaux</h3>
+<h2 id="rappels-sur-le-dns"><strong>Rappels sur le DNS</strong></h2>
+<h3 id="types-denregistrements-dns-principaux"><strong>Types d’enregistrements DNS principaux</strong></h3>
 <ul>
 <li><strong>NS (Name Server)</strong> : définit les serveurs DNS faisant autorité sur une zone.</li>
 <li><strong>A</strong> : associe un nom de domaine à une adresse IPv4.</li>
@@ -177,8 +185,8 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 <li><strong>TXT</strong> : enregistrement textuel (SPF, vérifications, etc.).</li>
 </ul>
 <hr />
-<h2 id="avantages-et-inconvenients-dun-dns-recursif-interne">Avantages et inconvénients d’un DNS récursif interne</h2>
-<h3 id="avantages">Avantages</h3>
+<h2 id="avantages-et-inconvenients-dun-dns-recursif-interne"><strong>Avantages et inconvénients d’un DNS récursif interne</strong></h2>
+<h3 id="avantages"><strong>Avantages</strong></h3>
 <ul>
 <li>Amélioration des performances grâce au cache local</li>
 <li>Réduction de la dépendance aux DNS publics (Google, Cloudflare…)</li>
@@ -186,7 +194,7 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 <li>Contrôle et journalisation des requêtes DNS</li>
 <li>Continuité locale même en cas de panne Internet</li>
 </ul>
-<h3 id="inconvenients">Inconvénients</h3>
+<h3 id="inconvenients"><strong>Inconvénients</strong></h3>
 <ul>
 <li>Complexité de gestion et de maintenance</li>
 <li>Consommation de ressources (CPU, mémoire)</li>
@@ -195,78 +203,96 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 <li>Surveillance nécessaire contre les abus DNS</li>
 </ul>
 <hr />
-<h2 id="installation-et-configuration-du-service-unbound">Installation et configuration du service Unbound</h2>
-<h3 id="installation-du-service">Installation du service</h3>
+<h2 id="installation-et-configuration-du-service-unbound"><strong>Installation et configuration du service Unbound</strong></h2>
+<h3 id="installation-du-service"><strong>Installation du service</strong></h3>
 <p>Mettre à jour le système et installer <strong>Unbound</strong> :</p>
-<p>```bash
-sudo apt update
-sudo apt install unbound</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install unbound
+</code></pre>
 <p>Vérifier la version installée :</p>
-<p>sudo unbound -V</p>
+<pre><code class="language-bash">sudo unbound -V
+</code></pre>
 <p>Sauvegarde et configuration des fichiers</p>
 <p>La configuration d’Unbound se trouve dans :</p>
-<p>/etc/unbound/unbound.conf</p>
+<pre><code class="language-bash">/etc/unbound/unbound.conf
+</code></pre>
 <p>Avant modification, il est recommandé de sauvegarder le fichier :</p>
-<p>sudo cp /etc/unbound/unbound.conf /etc/unbound/unbound.conf.bak</p>
+<pre><code class="language-bash">sudo cp /etc/unbound/unbound.conf /etc/unbound/unbound.conf.bak
+</code></pre>
 <p>Exemple de configuration Unbound</p>
-<p>include-toplevel: "/etc/unbound/unbound.conf.d/*.conf"</p>
-<p>server:
+<pre><code class="language-bash">include-toplevel: &quot;/etc/unbound/unbound.conf.d/*.conf&quot;
+
+server:
   interface: 172.16.51.100
-  interface: 127.0.0.1</p>
-<p>access-control: 172.16.1.0/24 allow
+  interface: 127.0.0.1
+
+  access-control: 172.16.1.0/24 allow
   access-control: 172.16.2.0/24 allow
   access-control: 172.16.3.0/24 allow
   access-control: 172.16.4.0/24 allow
   access-control: 172.16.0.0/24 allow
   access-control: 127.0.0.0/8 allow
-  access-control: 0.0.0.0/0 refuse</p>
-<p>hide-version: yes
+  access-control: 0.0.0.0/0 refuse
+
+  hide-version: yes
   hide-identity: yes
   do-ip4: yes
-  verbosity: 3</p>
-<p>Cette configuration permet :</p>
-<pre><code>d’autoriser uniquement certains réseaux (VLAN)
-
-de bloquer les requêtes externes
-
-de masquer les informations du serveur DNS
+  verbosity: 3
 </code></pre>
+<h3 id="ce-que-fait-cette-configuration">Ce que fait cette configuration</h3>
+<p>✅ <strong>Contrôle d’accès</strong>
+- Autorise uniquement les réseaux internes définis (VLAN)</p>
+<p>✅ <strong>Sécurité</strong>
+- Bloque toutes les requêtes DNS externes
+- Masque l’identité et la version du serveur DNS</p>
+<p>✅ <strong>Durcissement</strong>
+- Réduit la surface d’attaque du service DNS</p>
 <p>Démarrage du service Unbound</p>
 <p>Démarrer le service :</p>
-<p>sudo systemctl start unbound</p>
-<p>Vérifier son état :</p>
-<p>sudo systemctl status unbound</p>
-<p>Configuration des clients
-Configuration sous Windows</p>
-<pre><code>Ouvrir le Panneau de configuration
-
-Aller dans Réseau et Internet &gt; Centre Réseau et partage
-
-Cliquer sur Modifier les paramètres de la carte
-
-Clic droit sur la carte réseau → Propriétés
-
-Sélectionner IPv4 → Propriétés
-
-Cocher Utiliser l’adresse de serveur DNS suivante
-
-Entrer l’IP du serveur DNS interne
-
-Valider avec OK
+<pre><code class="language-bash">sudo systemctl start unbound
 </code></pre>
+<p>Vérifier son état :</p>
+<pre><code class="language-bash">sudo systemctl status unbound
+</code></pre>
+<p>Configuration des clients</p>
+<h3 id="configuration-sous-windows">Configuration sous Windows</h3>
+<ol>
+<li>Ouvrir le <strong>Panneau de configuration</strong></li>
+<li>Aller dans <strong>Réseau et Internet → Centre Réseau et partage</strong></li>
+<li>Cliquer sur <strong>Modifier les paramètres de la carte</strong></li>
+<li>Clic droit sur la carte réseau → <strong>Propriétés</strong></li>
+<li>Sélectionner <strong>IPv4</strong> → <strong>Propriétés</strong></li>
+<li>Cocher <strong>Utiliser l’adresse de serveur DNS suivante</strong></li>
+<li>Entrer l’IP du serveur DNS interne</li>
+<li>Valider avec <strong>OK</strong></li>
+</ol>
 <p>Configuration sous Linux</p>
 <p>Éditer le fichier de résolution DNS :</p>
-<p>sudo nano /etc/resolv.conf</p>
-<p>Ajouter ou modifier la ligne :</p>
-<p>nameserver 192.168.1.1</p>
-<p>(Remplacer par l’adresse IP de ton serveur DNS interne)
-Test de fonctionnement</p>
-<p>Le bon fonctionnement peut être vérifié :</p>
-<pre><code>en testant la résolution de noms (ping, nslookup)
-
-ou via Wireshark pour analyser les trames DNS sur le réseau
+<pre><code class="language-bash">sudo nano /etc/resolv.conf
 </code></pre>
-<p>Conclusion</p>
+<h3 id="configuration-du-resolveur-dns">Configuration du résolveur DNS</h3>
+<p>Ajouter ou modifier la ligne suivante dans le fichier :</p>
+<pre><code class="language-bash">nameserver 192.168.1.1
+</code></pre>
+<pre><code>ℹ️ Remarque
+Remplacer 192.168.1.1 par l’adresse IP de votre serveur DNS interne.
+</code></pre>
+<hr />
+<h2 id="test-de-fonctionnement">🔍 Test de fonctionnement</h2>
+<p>Le bon fonctionnement du serveur DNS peut être vérifié de plusieurs manières :</p>
+<ul>
+<li>🔎 <strong>Test de résolution de noms</strong></li>
+<li><code>ping google.com</code></li>
+<li>
+<p><code>nslookup google.com</code></p>
+</li>
+<li>
+<p>📡 <strong>Analyse réseau</strong></p>
+</li>
+<li>Observation des requêtes DNS via <strong>Wireshark</strong></li>
+</ul>
+<hr />
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
 <p>Mettre en place un serveur DNS récursif interne avec Unbound est une solution efficace pour améliorer les performances et renforcer le contrôle des requêtes DNS dans une entreprise.</p>
 <p>Même si cela demande plus de travail en termes d’installation et de maintenance, les bénéfices en sécurité, indépendance et maîtrise du réseau sont significatifs.
 C’est donc un choix pertinent pour une infrastructure professionnelle.</p></div>

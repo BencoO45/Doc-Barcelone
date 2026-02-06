@@ -48,9 +48,16 @@ Dans une entreprise, mettre en place un serveur DNS récursif interne permet d�
 Mettre à jour le système et installer **Unbound** :
 
 ```bash
-sudo apt update
-sudo apt install unbound
+sudo apt update && sudo apt upgrade
 ```
+
+Installez le service de journalisation RSYSLOG à la place de journalctl !
+Cela permmettra de disposer de fichiers de log clairs au format texte situés dans /var/log
+
+```bash
+sudo apt install rsyslog
+```
+
 
 Vérifier la version installée :
 
@@ -72,10 +79,13 @@ Avant modification, il est recommandé de sauvegarder le fichier :
 sudo cp /etc/unbound/unbound.conf /etc/unbound/unbound.conf.bak
 ```
 
-Exemple de configuration Unbound
+Exemple de configuration Unbound <br>
+Ajouter la directive suivante dans le fichier de configuration Unbound :
 
 ```bash
+
 include-toplevel: "/etc/unbound/unbound.conf.d/*.conf"
+
 
 server:
   interface: 172.16.51.100
