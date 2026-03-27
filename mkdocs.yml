@@ -8,6 +8,7 @@ nav:
   - Linux:
       - Commandes de base: linux/commandes-de-base.md
       - DHCP (debian 12) : linux/InstallationDHCP.md
+      - Fail2Ban: linux/Fail2Ban.md
   - Service Web:
       - Introduction: service-web/index.md
   - Stormshield:
