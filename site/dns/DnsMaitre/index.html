@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Dns Maitre (bind) - Doc Barcelone</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Doc Barcelone</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Accueil</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">DNS</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../" class="dropdown-item">Introduction</a>
+</li>
+                                    
+<li>
+    <a href="../dns-recursif-unbound/" class="dropdown-item">DNS récursif (Unbound)</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Dns Maitre (bind)</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Linux</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../linux/commandes-de-base/" class="dropdown-item">Commandes de base</a>
+</li>
+                                    
+<li>
+    <a href="../../linux/FichierDeConfiguration/" class="dropdown-item">FichierDeConf</a>
+</li>
+                                    
+<li>
+    <a href="../../linux/InstallationDHCP/" class="dropdown-item">DHCP (debian 12)</a>
+</li>
+                                    
+<li>
+    <a href="../../linux/Fail2Ban/" class="dropdown-item">Fail2Ban</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Service Web</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../service-web/" class="dropdown-item">Introduction</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Stormshield</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../stormshield/" class="dropdown-item">Introduction</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Versioning</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../versioning/" class="dropdown-item">Introduction</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Windows</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../windows/" class="dropdown-item">Introduction</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Téléphonie</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../t%C3%A9l%C3%A9phonie/" class="dropdown-item">Introduction</a>
+</li>
+                                    
+<li>
+    <a href="../../t%C3%A9l%C3%A9phonie/freepbx/" class="dropdown-item">FreePBX Migration</a>
+</li>
+                                    
+<li>
+    <a href="../../t%C3%A9l%C3%A9phonie/zoiper5/" class="dropdown-item">Asterisk</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../dns-recursif-unbound/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../linux/commandes-de-base/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#this-file-describes-the-network-interfaces-available-on-your-system" class="nav-link">This file describes the network interfaces available on your system</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#and-how-to-activate-them-for-more-information-see-interfaces5" class="nav-link">and how to activate them. For more information, see interfaces(5).</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#the-loopback-network-interface" class="nav-link">The loopback network interface</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#the-primary-network-interface" class="nav-link">The primary network interface</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#the-following-lines-are-desirable-for-ipv6-capable-hosts" class="nav-link">The following lines are desirable for IPv6 capable hosts</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#on-autorise-le-daemon-bind-9-a-lire-et-ecrire-dans-le-fichier-varlogbindlog" class="nav-link">On autorise le daemon Bind 9 à lire et ecrire dans le fichier /var/log/bind.log</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<ol>
+<li>Vérification préalable
+Mettez à jour votre serveur</li>
+</ol>
+<p>sudo apt update &amp;&amp; sudo apt upgrade
+Sur votre serveur Debian 12, installez le service de journalisation rsyslog à la place de journalctl. Cela vous permettra de disposer de fichiers de log clairs au format texte situés dans /var/log.</p>
+<p>sudo apt install rsyslog
+Installez le service Bind 9 et les outils diagnostics DNS</p>
+<p>sudo apt install bind9 dnsutils
+2. Définir les paramètres réseaux du serveur</p>
+<p>sudoedit /etc/network/interfaces</p>
+<h1 id="this-file-describes-the-network-interfaces-available-on-your-system">This file describes the network interfaces available on your system</h1>
+<h1 id="and-how-to-activate-them-for-more-information-see-interfaces5">and how to activate them. For more information, see interfaces(5).</h1>
+<p>source /etc/network/interfaces.d/*</p>
+<h1 id="the-loopback-network-interface">The loopback network interface</h1>
+<p>auto lo
+iface lo inet loopback</p>
+<h1 id="the-primary-network-interface">The primary network interface</h1>
+<p>allow-hotplug ens192
+auto ens192
+iface ens192 inet static
+address 172.16.3.10
+netmask 255.255.255.0
+gateway 172.16.3.254
+3. Définir le serveur DNS récursif à utiliser</p>
+<p>sudoedit /etc/resolv.conf</p>
+<p>nameserver 86.54.11.100
+nameserver 9.9.9.9
+Pourquoi choisir ces serveurs DNS récursifs ?
+4. Prendre en compte les modifications des paramètres réseaux</p>
+<p>sudo systemctl restart networking
+5. Configurer correctement les fichiers /etc/hostname et /etc/hosts
+Le fichier hostname sert à donner un nom à votre serveur.</p>
+<p>sudoedit /etc/hostname</p>
+<p>ns0
+Information</p>
+<p>Le fichier hosts, ancêtre des stubresolver DNS, permet de faire la correspondance entre un nom et une IP. Il est généralement prioritaire sur la résolution DNS (pour modifier l’ordre de préférence, éditez le fichier /etc/nsswitch.conf). Dans ce fichier, il est important de renseigner la correspondance entre votre adresse de boucle locale et un nom. Ainsi, si votre machine sollicite le nom indiqué lors d'un processus particulier, cela la renverra vers l'adresse de loopback.</p>
+<p>sudoedit /etc/hosts</p>
+<p>127.0.0.1   localhost
+127.0.1.1   ns0.tours.tierslieux86.fr   ns0</p>
+<h1 id="the-following-lines-are-desirable-for-ipv6-capable-hosts">The following lines are desirable for IPv6 capable hosts</h1>
+<p>::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+Il est nécessaire de redémarrer le serveur pour prendre en compte le changement de nom.</p>
+<p>sudo shutdown -r now
+6. Principes généraux concernant Bind9 et le service DNS.
+Créer dans le répertoire /var/named/ les zones adéquates à l’aide d’un fichier db.xxxxxx (ou xxxxxx correspond à votre nom de domaine) par exemple, db.tours.btsssio.fr.
+Initialiser la ou les zones dans /etc/bind/named.conf.local
+Ajouter ou gérer les options globales du daemon Bind 9 dans /etc/bind/named.conf.options
+Faire particulièrement attention à la syntaxe.
+Penser aux commandes de test et redémarrer ou recharger le service.
+Les commandes à connaître absolument sont les suivantes et vous seront utiles tout au long de votre activité :</p>
+<p>dig
+host
+nslookup (sous Windows)
+named-checkconf
+named-checkzone
+service bind9 stop|start|restart|reload|status (fonctionne avec SysVinit, systemd)
+avec systemd, systemctl stop|start|restart|reload|status bind9
+7. Exemple de configuration d'un serveur DNS maître faisant autorité
+Attention</p>
+<p>Il est recommandé de supprimer le contenu des fichiers de configuration par défaut et d'utiliser le contenu fourni ci-dessous. N'oubliez pas que etckeeper doit être mobilisé.</p>
+<p>sudo cat /etc/bind/named.conf</p>
+<p>// This is the primary configuration file for the BIND DNS server named.
+// If you are just adding zones, please do that in /etc/bind/named.conf.local</p>
+<p>include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";
+Le fichier /etc/bind/named.conf est le fichier de configuration global du service DNS. Il est possible d'y renseigner tous les paramètres de configuration du service.</p>
+<p>Sous Debian, il a été décidé dans un souci de lisibilité, de scinder la configuration en plusieurs fichiers. Ces fichiers sont appelés par le fichier de configuration général à l'aide de la directive include.</p>
+<p>Le fichier named.conf.options est utilisé pour déclarer les options de configuration liées à Bind.
+Le fichier named.conf.local sert à déclarer les zones nouvellement créées.
+Le fichier named.conf.default-zones contient les déclarations de fichier de zone concernant la racine DNS et la boucle locale.
+Le fichier named.conf.log n'existe pas mais vous permettra de gérer la journalisation de votre service dans un fichier texte dédié.</p>
+<p>sudo cat /etc/bind/named.conf.options</p>
+<p>options {
+    // Directory permet de définir où se situe le cache du serveur DNS
+    directory "/var/cache/bind";</p>
+<pre><code>// Définit le port et la ou les adresses IPv4 d’écoute du service Bind
+listen-on port 53 { 127.0.0.1; 172.16.3.10; };
+
+
+// Forwarders (redirecteurs) permet de définir les serveurs DNS récursifs qui seront sollicités par 
+// Bind lorsqu'il ne sera pas répondre à une requête.
+// forwarders {
+//  0.0.0.0;
+// };
+
+// Recursion permet  d'autoriser ou d'interdire la récursivité sur un serveur DNS. Par défaut un
+// serveur DNS faisant autorité ne doit pas être récursif.
+recursion no;
+
+// Empêche la diffusion de la version du service Bind utilisée. Mécanisme de sécurité qui ralentit
+// un potentiel attaquant à la recherche d’une faille liée à une version précise du service.
+version none;
+</code></pre>
+<p>};</p>
+<p>sudoedit /etc/bind/named.conf.local</p>
+<p>zone "tours.tierslieux86.fr" {
+    type master;
+    allow-transfer { 172.16.3.11; };
+    file "/var/cache/bind/db.tours.tierslieux86.fr";
+};
+Ce fichier sert à déclarer les zones que vous aurez à gérer. Votre serveur peut-être maître sur une zone ou esclave. La directive file sert à déclarer le fichier de zone contenant les enregistrements liés (SOA, NS, A…). La directive allow-transfer permet de déclarer les serveurs esclaves habilités.</p>
+<p>Attention</p>
+<p>Le numéro de série ne doit jamais être choisi au hasard et systématiquement incrémenté à chaque modification du fichier de zone. Les guides de bonnes pratiques recommande de choisir la date du jour sous 2025090101 (année/mois/jour/id). Dans le cas d'une architecture maître-esclave si le numéro de série présent sur le maître se retrouve décrémenté et inférieur à celui du serveur esclave, le transfert de zone ne se fera plus !</p>
+<pre><code>sudoedit /var/cache/bind/db.tours.tierslieux86.fr
+sudo chown bind:bind /var/cache/bind/db.tours.tierslieux86.fr
+
+; La directive TTL définie la durée de conservation en cache d'informations concernant cette zone par les 
+; serveurs DNS résolveurs. Lorsque ce TTL arrive à expiration les résolveurs vident leur cache et 
+; consultent à nouveau le serveur faisant autorité.
+$TTL 43200;     12 heures
+
+; Pour le domaine défini dans le fichier de zone, on déclare le serveur SOA ainsi que le mail de la 
+; personne à contacter pour cette zone (sans le @).
+
+; Le numéro de série est important. Souvent, il correspond à la date du jour suivi d'un chiffre ou d'une 
+; valeur que l'on incrémente lors des modifications. Le numéro de série d'une zone stockée par un 
+; serveur esclave ne doit jamais être supérieur à celle présente sur un serveur maître. Lorsque l'on 
+; incrémente le numéro de série, cela signifie aux serveurs esclaves qu'une modification sur la zone a été 
+; opérée.
+
+; Les valeurs suivantes permettent aux serveurs esclaves d'obtenir les délais maximums avant de 
+; rafraîchir leur zone, de réessayer à contacter le serveur maître en cas d'interruption de service. En cas 
+; d'interruption du service sur le maître pendant plus d'une semaine, l'esclave considérera ce dernier 
+; comme expiré.
+
+tours.tierslieux86.fr. IN SOA ns0.tours.tierslieux86.fr. postmaster.tours.tierslieux86.fr. (
+    2021070601  ; Serial
+        1D  ; Refresh
+        1H  ; Retry
+        1W  ; Expire
+        3H )    ; Negative Cache TTL
+
+; Déclaration des serveurs DNS faisant autorité sur la zone tours.tierslieux86.fr à l’aide de 
+; l’enregistrement NS.
+
+tours.tierslieux86.fr.  IN  NS  ns0.tours.tierslieux86.fr.
+tours.tierslieux86.fr.  IN  NS  ns1.tours.tierslieux86.fr.
+
+; Déclaration des correspondances entre un nom de domaine et une adresse IP à l’aide de l
+; ’enregistrement A. Il est indispensable de déclarer les correspondances pour les serveurs DNS (nsx).
+
+ns0     IN  A   172.16.3.10
+ns1     IN  A   172.16.3.11
+www.    IN  A   172.16.3.2
+
+; Exemple d’utilisation d’un alias. Ici extranet.tours.tierslieux86.fr renvoie vers 
+; www.tours.tierslieux86.fr. 
+
+extranet IN CNAME www.tours.tierslieux86.fr.
+</code></pre>
+<p>Attention</p>
+<p>Ceci est un exemple de fichier de zone à réadapter sans les commentaires (;). Tous les enregistrements présents dans cet exemple ne servent pas forcément dans le TP. Par contre, il est pertinent de rechercher leurs significations sur Internet pour comprendre à quoi ils peuvent servir dans un contexte professionnel.</p>
+<p>Mise en place d’une journalisation des évènements du service DNS</p>
+<p>sudoedit /etc/bind/named.conf.log</p>
+<pre><code>logging {
+
+    channel bind_log {
+                    file &quot;/var/log/bind.log&quot; versions 3 size 100m;
+                   severity info;
+                    print-category  yes;
+                    print-severity  yes;
+                    print-time      yes;
+    };
+
+    category default { bind_log; };
+
+};
+</code></pre>
+<p>Ce fichier permet d'activer la journalisation des évènements pour le service DNS. Vous pouvez préciser le niveau de verbosité avec la directive severity mais aussi la taille maximale du fichier de log. Comme pour le fichier de zone esclave, il est nécessaire de créer un fichier vide de log avec les bonnes permissions au préalable :</p>
+<pre><code>sudo touch /var/log/bind.log
+sudo chown bind:bind /var/log/bind.log
+</code></pre>
+<p>Enfin, on n’oublie pas de déclarer ce nouveau fichier de configuration dans /etc/bind/named.conf.</p>
+<pre><code>sudoedit /etc/bind/named.conf
+</code></pre>
+<p>// This is the primary configuration file for the BIND DNS server named.
+// If you are just adding zones, please do that in /etc/bind/named.conf.local
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";</p>
+<p>// Ajout du fichier de parametrage de la journalisation du service BIND
+include "/etc/bind/named.conf.log";
+Attention</p>
+<p>Sur les systèmes Debian récents, un logiciel de sécurité de type MAC (Mandatory Access Control) nommé AppArmor est activé par défaut. Il surveille entre autres les droits d’accès des différents processus lancés sur le système. Par défaut, AppArmor empêche le service Bind 9 de lire et écrire dans le répertoire /var/log/. Il est donc indispensable de changer ces permissions.</p>
+<pre><code>sudoedit /etc/apparmor.d/usr.sbin.named
+</code></pre>
+<h1 id="on-autorise-le-daemon-bind-9-a-lire-et-ecrire-dans-le-fichier-varlogbindlog">On autorise le daemon Bind 9 à lire et ecrire dans le fichier /var/log/bind.log</h1>
+<p>/var/log/bind.log rw,
+On vérifie que le nouveau fichier de configuration de AppArmor ne contient pas d’erreurs puis on redémarre le service.</p>
+<pre><code>sudo apparmor_parser -r /etc/apparmor.d/usr.sbin.named
+sudo systemctl restart apparmor
+named-checkconf
+</code></pre>
+<pre><code>sudo named-checkconf -z
+sudo systemctl restart bind9
+sudo systemctl status bind9
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
