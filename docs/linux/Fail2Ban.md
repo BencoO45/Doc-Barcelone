@@ -4,12 +4,14 @@
 Protéger un serveur (ex : DNS récursif) contre les attaques DoS en bloquant automatiquement les IP suspectes.
 
 ## Installation
-```bash
+```
 sudo apt update
 sudo apt install fail2ban -y
-Activation
+`Activation`
 sudo systemctl enable fail2ban
 sudo systemctl start fail2ban
+```
+
 Configuration
 
 Fichier :
@@ -18,6 +20,7 @@ Fichier :
 
 Exemple :
 
+```
 [DEFAULT]
 bantime = 600
 findtime = 600
@@ -27,8 +30,10 @@ maxretry = 10
 enabled = true
 port = 53
 logpath = /var/log/syslog
-Vérification
+```
+Pour Vérification
+```
 sudo fail2ban-client status
+```
 Résultat
-
 Les IP suspectes sont automatiquement bloquées via le pare-feu.

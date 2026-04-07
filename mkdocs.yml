@@ -5,8 +5,10 @@ nav:
   - DNS:
       - Introduction: dns/index.md
       - DNS récursif (Unbound): dns/dns-recursif-unbound.md
+      - Dns Maitre (bind): dns/DnsMaitre.md
   - Linux:
       - Commandes de base: linux/commandes-de-base.md
+      - FichierDeConf : linux/FichierDeConfiguration.md
       - DHCP (debian 12) : linux/InstallationDHCP.md
       - Fail2Ban: linux/Fail2Ban.md
   - Service Web:
@@ -20,6 +22,7 @@ nav:
   - Téléphonie:
       - Introduction: téléphonie/index.md 
       - FreePBX Migration: téléphonie/freepbx.md
+      - Asterisk : téléphonie/zoiper5.md
 theme:
   name: mkdocs
   logo: assets/logo.png
